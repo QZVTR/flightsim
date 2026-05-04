@@ -1,0 +1,12 @@
+body {
+	font-family: 'Courier New', Courier, monospace;
+}
+
+canvas {
+  border: 1px solid #b9cfed;
+  background-color: #b9cfed;
+}
+
+.title {
+  color: #075AAA;
+}
