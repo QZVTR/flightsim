@@ -1,9 +1,10 @@
 // js/main.js
-import { loadPlaneModel, planeState } from './plane.js';
+import { createPlane } from './plane.js';
 import { updatePhysics } from './physics.js';
 import { createWorld } from './world.js';
 import { updateCamera } from './camera.js';
 import { updateUI } from './ui.js';
+import { shootBullet, updateBullets } from './weapons.js';
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x88aaff);    
@@ -24,7 +25,26 @@ sun.position.set(500, 800, 300);
 scene.add(sun);
 
 createWorld(scene);
-loadPlaneModel(scene);
+
+const planes = [];
+
+// Player
+const player = createPlane(scene, 'player', new THREE.Vector3(0, 20, 3000));
+planes.push(player);
+
+// Enemies
+for (let i = 0; i < 50; i++) {
+  const enemy = createPlane(
+    scene,
+    'enemy',
+    new THREE.Vector3(
+      Math.random() * 2000 - 1000,
+      200 + Math.random() * 200,
+      Math.random() * -2000
+    )
+  );
+  planes.push(enemy);
+}
 
 const keys = {};
 document.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
@@ -38,10 +58,9 @@ window.addEventListener('resize', () => {
 
 function animate(currentTime = 0) {
   requestAnimationFrame(animate);
-  
-  updatePhysics(keys, currentTime);
-  updateCamera(camera);
-  updateUI();
+  updatePhysics(planes, keys, currentTime);
+  updateCamera(camera, player);
+  updateUI(player);
   
   renderer.render(scene, camera);
 }

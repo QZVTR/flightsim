@@ -1,21 +1,18 @@
 // js/ui.js
-import { planeState } from './plane.js';
 const uiElement = document.getElementById('ui');
 
-export function updateUI() {
-  if (!planeState) return;
+export function updateUI(playerPlane) {
+  if (!playerPlane || !playerPlane.container) return;
 
-  const p = planeState;
+  const p = playerPlane;
 
   const matrix = new THREE.Matrix4().extractRotation(p.container.matrixWorld);
   const forward = new THREE.Vector3(0, 0, -1).applyMatrix4(matrix);
 
   let angle = Math.atan2(forward.x, forward.z);
-
-  let heading = (angle * 57.3 + 180) % 360
+  let heading = (angle * 57.3 + 180) % 360;
 
   const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-
   const dirIndex = Math.round(heading / 45) % 8;
   const cardinal = directions[dirIndex];
 

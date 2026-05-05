@@ -26,7 +26,7 @@ export function createWorld(scene) {
 
   const ground = new THREE.Mesh(
     geometry,
-    new THREE.MeshLambertMaterial({ color: 0x2d5a27, flatShading: true })
+    new THREE.MeshLambertMaterial({ color: 0x2d5a27 })
   );
   ground.rotation.x = -Math.PI / 2;
   scene.add(ground);
