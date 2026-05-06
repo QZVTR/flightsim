@@ -56,12 +56,26 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Inside your animate function in main.js:
 function animate(currentTime = 0) {
   requestAnimationFrame(animate);
-  updatePhysics(planes, keys, currentTime);
-  updateCamera(camera, player);
-  updateUI(player);
   
+  // Calculate delta if you haven't moved that logic to a central spot
+  const delta = 1; // Or use the delta logic from your physics.js
+  const enemyCount = planes.filter(p => p.role === 'enemy').length;
+  // Handle Shooting
+  if (keys[' ']) { // Spacebar
+    if (player.fireCooldown <= 0) {
+      shootBullet(scene, player);
+      player.fireCooldown = 3; // Frames between shots
+    }
+  }
+  if (player.fireCooldown > 0) player.fireCooldown -= 1;
+
+  updatePhysics(planes, keys, currentTime);
+  updateBullets(scene, planes, delta); // Pass planes here!
+  updateCamera(camera, player);
+  updateUI(player, enemyCount);
   renderer.render(scene, camera);
 }
 

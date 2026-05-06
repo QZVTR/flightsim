@@ -1,7 +1,7 @@
 // js/ui.js
 const uiElement = document.getElementById('ui');
 
-export function updateUI(playerPlane) {
+export function updateUI(playerPlane, enemyCount) {
   if (!playerPlane || !playerPlane.container) return;
 
   const p = playerPlane;
@@ -25,6 +25,7 @@ export function updateUI(playerPlane) {
     Altitude: <b>${Math.floor(p.position.y)}</b> ft<br>
     Speed: <b>${Math.floor(p.speed)}</b> kts<br>
     Pitch: <b>${(displayRot.x * 57.3).toFixed(1)}</b>°<br>
-    Bank: <b>${(displayRot.z * 57.3).toFixed(1)}</b>°
+    Bank: <b>${(displayRot.z * 57.3).toFixed(1)}</b>°<br>
+    Enemies: <b style="color: ${enemyCount > 0 ? '#ff4444' : '#44ff44'};">${enemyCount}</b>
   `;
 }

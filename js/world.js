@@ -1,3 +1,4 @@
+// js/world.js
 export function createWorld(scene) {
   // Ground
   const size = 100000;

@@ -1,7 +1,5 @@
 // js/camera.js
 
-//let cameraInitialized = false;
-
 export function updateCamera(camera, playerPlane) {
   if (!playerPlane || !playerPlane.container) return;
 
